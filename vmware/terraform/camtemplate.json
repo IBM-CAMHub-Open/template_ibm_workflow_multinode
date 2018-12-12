@@ -31,7 +31,7 @@
     "description": " VMware<br>"},
 {
     "title": "Operating Systems Supported",
-    "description": "Ubuntu 16.04 LTS<br>"},
+    "description": "Ubuntu 16.04 LTS<br>Ubuntu 18.04 LTS<br>"},
 {
     "title": "Topology",
     "description": "Virtual Machine 1:<br>  IBM Business Automation Workflow Enterprise V18 - Deployment Manager and Custom Node, one cluster member<br>Virtual Machine 2:<br> IBM Business Automation Workflow Enterprise V18 - Custom Node, one cluster member<br>Virtual Machine 3:<br> IBM HTTP Server<br>"},

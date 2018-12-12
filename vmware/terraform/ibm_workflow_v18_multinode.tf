@@ -503,7 +503,7 @@ variable "Workflow01_baw_offering_id" {
 #Variable : Workflow01_db2_offering_id
 variable "Workflow01_db2_offering_id" {
   type = "string"
-  description = "The offering ID of the DB2 database system"
+  description = "The offering ID of the Db2 database system"
   default = "com.ibm.ws.DB2EXP.linuxia64"
 }
 
@@ -518,6 +518,12 @@ variable "Workflow01_install_mode" {
 variable "Workflow01_ifix_names" {
   type = "list"
   description = "Indicates the full names of ifix installation packages - e.g 8.6.10018001-WS-BPMPCPD-TFPD12345.zip"
+}
+
+#Variable : Workflow01_fixpack_names
+variable "Workflow01_fixpack_names" {
+  type = "list"
+  description = "Indicates the full names of fix pack installation packages - e.g workflow.18002.delta.repository.zip"
 }
 
 ##### Configuration variables #####
@@ -625,38 +631,52 @@ variable "case_network_shared_dir" {
   description = "The network directory shared among multiple process servers in the deployment environment"
 }
 
+#Variable : Database_type
+variable "Database_type" {
+  type = "string"
+  description = "The database type, Db2 or Oracle"
+}
+
+#Variable : Oracle_jdbc_driver
+variable "Oracle_jdbc_driver" {
+  type = "string"
+  description = "The name of the Oracle JDBC Driver"
+}
+
 ##### Database variables #####
+##### Db2 #####
+
 #Variable : Workflow01_db2_install
 variable "Workflow01_db2_install" {
   type = "string"
-  description = "Installs the DB2 database system"
+  description = "Installs the Db2 database system"
   default = "true"
 }
 
 #Variable : Database_db2_hostname
 variable "Database_db2_hostname" {
   type = "string"
-  description = "The hostname of DB2 instance"
+  description = "The hostname of Db2 instance"
 }
 
 #Variable : Database_db2_port
 variable "Database_db2_port" {
   type = "string"
-  description = "The port of DB2 instance"
+  description = "The port of Db2 instance"
   default = "50000"
 }
 
 #Variable : Database_db2_instance_username
 variable "Database_db2_instance_username" {
   type = "string"
-  description = "The instance user name of the DB2"
+  description = "The instance user name of the Db2"
   default = "db2inst1"
 }
 
 #Variable : Database_db2_instance_userpassword
 variable "Database_db2_instance_userpassword" {
   type = "string"
-  description = "The password to the DB2 instance"
+  description = "The password to the Db2 instance"
 }
 variable "Workflow01_db2_fenced_newuser" {
   type = "string"
@@ -665,12 +685,12 @@ variable "Workflow01_db2_fenced_newuser" {
 }
 variable "Workflow01_db2_fenced_username" {
   type = "string"
-  description = "The fenced user name of the DB2 instance"
+  description = "The fenced user name of the Db2 instance"
   default = "fenceuser"
 }
 variable "Workflow01_db2_fenced_userpassword" {
   type = "string"
-  description = "The fenced password to the DB2 instance"
+  description = "The fenced password to the Db2 instance"
   default = "passw0rd"
 }
 variable "Workflow01_db2_das_newuser" {
@@ -680,12 +700,12 @@ variable "Workflow01_db2_das_newuser" {
 }
 variable "Workflow01_db2_das_username" {
   type = "string"
-  description = "The user name to access the administration server of the DB2 instance"
+  description = "The user name to access the administration server of the Db2 instance"
   default = "dasuser"
 }
 variable "Workflow01_db2_das_userpassword" {
   type = "string"
-  description = "The password to the administration server of the DB2"
+  description = "The password to the administration server of the Db2"
   default = "passw0rd"
 }
 
@@ -720,70 +740,70 @@ variable "Database_db2_cpe_database" {
 #Variable : Database_cpe_icndb_schema
 variable "Database_cpe_icndb_schema" {
   type = "string"
-  description = "Content Database - IBM Content Navigator Schema: The schema for IBM Content Navigator (ICN)"
+  description = "Content Database - IBM Content Navigator Schema: The schema for IBM Content Navigator (ICNDb)"
   default = "ICNSA"
 }
 
 #Variable : Database_cpe_icndb_tablespace
 variable "Database_cpe_icndb_tablespace" {
   type = "string"
-  description = "Content Database - IBM Content Navigator Table Space: The table space for IBM Content Navigator (ICN)"
+  description = "Content Database - IBM Content Navigator Table Space: The table space for IBM Content Navigator (ICNDb)"
   default = "WFICNTS"
 }
 
 #Variable : Database_cpe_dosdb_schema
 variable "Database_cpe_dosdb_schema" {
   type = "string"
-  description = "Content Database - Design Object Store Schema: The schema for the design object store (DOS)"
+  description = "Content Database - Design Object Store Schema: The schema for the design object store (DosDb)"
   default = "DOSSA"
 }
 
 #Variable : Database_cpe_dosdb_tsdosdata
 variable "Database_cpe_dosdb_tsdosdata" {
   type = "string"
-  description = "Content Database - Design Object Store Data Table Space: The data table space for the design object store (DOS)"
+  description = "Content Database - Design Object Store Data Table Space: The data table space for the design object store (DosDb)"
   default = "DOSSA_DATA_TS"
 }
 
 #Variable : Database_cpe_dosdb_tsdoslob
 variable "Database_cpe_dosdb_tsdoslob" {
   type = "string"
-  description = "Content Database - Design Object Store Large Object Table Space: The large object table space for the design object store (DOS)"
+  description = "Content Database - Design Object Store Large Object Table Space: The large object table space for the design object store (DosDb)"
   default = "DOSSA_LOB_TS"
 }
 
 #Variable : Database_cpe_dosdb_tsdosidx
 variable "Database_cpe_dosdb_tsdosidx" {
   type = "string"
-  description = "Content Database - Design Object Store Index Table Space: The index table space for the design object store (DOS)"
+  description = "Content Database - Design Object Store Index Table Space: The index table space for the design object store (DosDb)"
   default = "DOSSA_IDX_TS"
 }
 
 #Variable : Database_cpe_tosdb_schema
 variable "Database_cpe_tosdb_schema" {
   type = "string"
-  description = " Content Database - Target Object Store Schema: The schema for the target object store (TOS)"
+  description = " Content Database - Target Object Store Schema: The schema for the target object store (TosDb)"
   default = "TOSSA"
 }
 
 #Variable : Database_cpe_tosdb_tstosdata
 variable "Database_cpe_tosdb_tstosdata" {
   type = "string"
-  description = "Content Database - Target Object Store Data Table Space: The data table space for the target object store (TOS)"
+  description = "Content Database - Target Object Store Data Table Space: The data table space for the target object store (TosDb)"
   default = "TOSSA_DATA_TS"
 }
 
 #Variable : Database_cpe_tosdb_tstoslob
 variable "Database_cpe_tosdb_tstoslob" {
   type = "string"
-  description = "Content Database - Target Object Store Large Object Table Space: The large object table space for the target object store (TOS)"
+  description = "Content Database - Target Object Store Large Object Table Space: The large object table space for the target object store (TosDb)"
   default = "TOSSA_LOB_TS"
 }
 
 #Variable : Database_cpe_tosdb_tstosidx
 variable "Database_cpe_tosdb_tstosidx" {
   type = "string"
-  description = "Content Database - Target Object Store Index Table Space: The index table space for the target object store (TOS)"
+  description = "Content Database - Target Object Store Index Table Space: The index table space for the target object store (TosDb)"
   default = "TOSSA_IDX_TS"
 }
 
@@ -793,6 +813,146 @@ variable "Workflow01_root_disk_type" {
   description = "Type of template disk volume"
   default = "eager_zeroed"
 }
+
+##### Oracle #####
+
+#Variable : Database_oracle_hostname
+variable "Database_oracle_hostname" {
+  type = "string"
+  description = "The hostname of the Oracle database."
+}
+
+#Variable : Database_oracle_port
+variable "Database_oracle_port" {
+  type = "string"
+  description = "The port number of the Oracle database."
+  default = "1521"
+}
+
+#Variable : Database_oracle_database_name
+variable "Database_oracle_database_name" {
+  type = "string"
+  description = "The name of the Oracle database."
+  default = "orcl"
+}
+
+#Variable : Database_oracle_shareddb_username
+variable "Database_oracle_shareddb_username" {
+  type = "string"
+  description = "The user name of the SharedDb schema."
+}
+
+#Variable : Database_oracle_shareddb_userpassword
+variable "Database_oracle_shareddb_userpassword" {
+  type = "string"
+  description = "The user password of the SharedDb schema."
+}
+
+#Variable : Database_oracle_cellonlydb_username
+variable "Database_oracle_cellonlydb_username" {
+  type = "string"
+  description = "The user name of the CellOnlyDb schema."
+}
+
+#Variable : Database_oracle_cellonlydb_userpassword
+variable "Database_oracle_cellonlydb_userpassword" {
+  type = "string"
+  description = "The user password of the CellOnlyDb schema."
+} 
+ 
+#Variable : Database_oracle_psdb_username
+variable "Database_oracle_psdb_username" {
+  type = "string"
+  description = "The user name of the ProcessServerDb schema."
+}
+
+#Variable : Database_oracle_psdb_userpassword
+variable "Database_oracle_psdb_userpassword" {
+  type = "string"
+  description = "The user password of the ProcessServerDb schema."
+}
+
+#Variable : Database_oracle_icndb_username
+variable "Database_oracle_icndb_username" {
+  type = "string"
+  description = "The user name of the IBM Content Navigator (ICNDb) schema."
+}
+
+#Variable : Database_oracle_icndb_userpassword
+variable "Database_oracle_icndb_userpassword" {
+  type = "string"
+  description = "The user password of the IBM Content Navigator (ICNDb) schema."
+}
+
+#Variable : Database_oracle_icndb_tablespace
+variable "Database_oracle_icndb_tablespace" {
+  type = "string"
+  description = "The table space for IBM Content Navigator (ICNDb) schema."
+  default = "WFICNTS"
+}
+
+#Variable : Database_oracle_dosdb_username
+variable "Database_oracle_dosdb_username" {
+  type = "string"
+  description = "The user name of the design object store (DosDb) schema."
+}
+
+#Variable : Database_oracle_dosdb_userpassword
+variable "Database_oracle_dosdb_userpassword" {
+  type = "string"
+  description = "The user password of the design object store (DosDb) schema."
+}
+
+#Variable : Database_oracle_dosdb_tsdosdata
+variable "Database_oracle_dosdb_tsdosdata" {
+  type = "string"
+  description = "The data table space for the design object store (DosDb) schema."
+  default = "DOSSA_DATA_TS"
+}   
+
+#Variable : Database_oracle_tosdb_username
+variable "Database_oracle_tosdb_username" {
+  type = "string"
+  description = "The user name of the target object store (TosDb) schema."
+}
+
+#Variable : Database_oracle_tosdb_userpassword
+variable "Database_oracle_tosdb_userpassword" {
+  type = "string"
+  description = "The user password of the target object store (TosDb) schema."
+}
+
+#Variable : Database_oracle_tosdb_tstosdata
+variable "Database_oracle_tosdb_tstosdata" {
+  type = "string"
+  description = "The data table space for the target object store (TosDb) schema."
+  default = "TOSSA_DATA_TS"
+}       
+
+#Variable : Database_oracle_pdwdb_username
+variable "Database_oracle_pdwdb_username" {
+  type = "string"
+  description = "The user name of the PerformanceDb schema."
+}      
+    
+#Variable : Database_oracle_pdwdb_userpassword
+variable "Database_oracle_pdwdb_userpassword" {
+  type = "string"
+  description = "The user password of the PerformanceDb schema."
+} 
+
+####### Metering ########
+#Variable: metering_url
+variable "metering_url" {
+  type = "string"
+  description = "The URL of IBM Cloud Private Metering Service."
+}
+
+#Variable: metering_apikey
+variable "metering_apikey" {
+  type = "string"
+  description = "The API key for the IBM Cloud Private Metering Service."
+}  
 
 #########################################################
 ##### Resource : VaultItem
@@ -993,6 +1153,7 @@ else
 echo "user_home : $user_home"
 fi
 
+echo "" >> "$user_auth_key_file"
 if [[ $ssh_key = 'None' ]]; then
 echo "skipping user key add, 'None' specified"
 else
@@ -1379,6 +1540,7 @@ else
 echo "user_home : $user_home"
 fi
 
+echo "" >> "$user_auth_key_file"
 if [[ $ssh_key = 'None' ]]; then
 echo "skipping user key add, 'None' specified"
 else
@@ -1499,7 +1661,6 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_install" {
       "features": "${var.Workflow01_features}",
       "offering_id": "${var.Workflow01_baw_offering_id}",
       "install_dir": "${local.Workflow01_install_dir}",
-      "ifix_names": "${join(",",var.Workflow01_ifix_names)}",
       "profile_id": "${var.Workflow01_was_profile_id}"
     },
     "db2": {
@@ -1561,6 +1722,9 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_config" {
     "ibm_internal": {
       "roles": "[workflow_v18_0_201809_create_singleclusters]"
     },
+    "ibm": {
+      "sw_repo": "${var.ibm_sw_repo}/workflow"
+    },
     "workflow":{
       "os_users": {
         "workflow": {
@@ -1581,6 +1745,7 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_config" {
         "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
         "ihs_hostname": "${var.IHS01-name}.${var.IHS01_domain}",
         "ihs_https_port": "${var.IHS01_ihs_https_port}",
+        "database_type": "${var.Database_type}",
         "db2_install": "${var.Workflow01_db2_install}",
         "db2_hostname": "${var.Database_db2_hostname}",
         "db2_port": "${var.Database_db2_port}",
@@ -1607,6 +1772,36 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_config" {
             "tstosidx": "${var.Database_cpe_tosdb_tstosidx}"
           }
         },
+        "oracle": {
+          "hostname": "${var.Database_oracle_hostname}",
+          "port": "${var.Database_oracle_port}",
+          "database_name": "${var.Database_oracle_database_name}",
+          "jdbc_driver": "${var.Oracle_jdbc_driver}",
+          "shareddb": {
+            "username": "${var.Database_oracle_shareddb_username}"
+          },
+          "cellonlydb": {
+            "username": "${var.Database_oracle_cellonlydb_username}"
+          },
+          "psdb": {
+            "username": "${var.Database_oracle_psdb_username}"
+          },
+          "icndb": {
+            "username": "${var.Database_oracle_icndb_username}",
+            "tsicn": "${var.Database_oracle_icndb_tablespace}"
+          },
+          "dosdb": {
+            "username": "${var.Database_oracle_dosdb_username}",
+            "tsdosdata": "${var.Database_oracle_dosdb_tsdosdata}"
+          },
+          "tosdb": {
+            "username": "${var.Database_oracle_tosdb_username}",
+            "tstosdata": "${var.Database_oracle_tosdb_tstosdata}"
+          },
+          "pdwdb": {
+            "username": "${var.Database_oracle_pdwdb_username}"
+          }
+        },
         "ps_environment_purpose": "${var.Workflow01_ps_environment_purpose}",
         "ps_offline": "${var.Workflow01_ps_offline}",
         "ps_pc_transport_protocol": "${var.Workflow01_ps_pc_transport_protocol}",
@@ -1614,6 +1809,10 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_config" {
         "ps_pc_port": "${var.Workflow01_ps_pc_port}",
         "ps_pc_contextroot_prefix": "${var.Workflow01_ps_pc_contextroot_prefix}",
         "ps_pc_alias_user": "${var.Workflow01_ps_pc_alias_user}",
+        "metering": {
+          "identifier_name": "${var.ibm_stack_name}",
+          "url": "${var.metering_url}"
+        },
         "case_network_shared_dir": "${var.case_network_shared_dir}"
        }
     },
@@ -1634,7 +1833,33 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_config" {
           "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}",
           "deadmin_alias_password": "${var.Workflow01_de_admin_userpassword}",
           "db_alias_password": "${var.Database_db2_instance_userpassword}",
-          "ps_pc_alias_password": "${var.Workflow01_ps_pc_alias_password}"
+          "ps_pc_alias_password": "${var.Workflow01_ps_pc_alias_password}",
+          "metering": {
+            "apikey": "${var.metering_apikey}"
+          },
+          "oracle": {
+            "shareddb": {
+              "password": "${var.Database_oracle_shareddb_userpassword}"
+            },
+            "cellonlydb": {
+              "password": "${var.Database_oracle_cellonlydb_userpassword}"
+            },
+            "psdb": {
+              "password": "${var.Database_oracle_psdb_userpassword}"
+            },
+            "icndb": {
+              "password": "${var.Database_oracle_icndb_userpassword}"
+            },
+            "dosdb": {
+              "password": "${var.Database_oracle_dosdb_userpassword}"
+            },
+            "tosdb": {
+              "password": "${var.Database_oracle_tosdb_userpassword}"
+            },
+            "pdwdb": {
+              "password": "${var.Database_oracle_pdwdb_userpassword}"
+            }
+          }
         }
       }
     },
@@ -1643,13 +1868,72 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_config" {
 }
 EOT
 }
+#########################################################
+##### Resource : Workflow01_workflow_v18_upgrade
+#########################################################
 
+resource "camc_softwaredeploy" "Workflow01_workflow_v18_upgrade" {
+  depends_on = ["camc_softwaredeploy.Workflow01_workflow_v18_install"]
+  name = "Workflow01_workflow_v18_upgrade"
+  camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
+  access_token = "${var.ibm_pm_access_token}"
+  skip_ssl_verify = true
+  trace = true
+  data = <<EOT
+{
+  "os_admin_user": "${var.Workflow01-os_admin_user}",
+  "stack_id": "${var.ibm_stack_id}",
+  "environment_name": "_default",
+  "host_ip": "${vsphere_virtual_machine.Workflow01.clone.0.customize.0.network_interface.0.ipv4_address}",
+  "node_name": "${var.Workflow01-name}",
+  "runlist": "role[workflow_upgrade]",
+  "node_attributes": {
+    "ibm": {
+      "fixpack_repo": "${var.ibm_sw_repo}/workflow/fixpacks"
+    },
+    "ibm_internal": {
+      "roles": "[workflow_upgrade]"
+    },
+    "workflow":{
+      "install_mode": "${var.Workflow01_install_mode}",
+      "os_users": {
+        "workflow": {
+          "gid": "${var.Workflow01_baw_os_user_gid}",
+          "name": "${var.Workflow01_baw_os_user_name}"
+          }
+      },
+      "install_dir": "${local.Workflow01_install_dir}",
+      "fixpack_names": ["${join("\",\"", var.Workflow01_fixpack_names)}"],
+      "config": {
+       "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
+       "celladmin_alias_user": "${var.Workflow01_cell_admin_username}"
+      }
+    }
+  },
+  "vault_content": {
+    "item": "secrets",
+    "values": {
+      "ibm": {
+        "im_repo_password": "${var.ibm_im_repo_password}",
+        "sw_repo_password_check": "${var.ibm_sw_repo_password}"
+      },
+      "workflow": {
+        "config": {
+          "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}"
+        }
+      }
+    },
+    "vault": "${var.ibm_stack_id}"
+  }
+}
+EOT
+}
 #########################################################
 ##### Resource : Workflow01_workflow_v18_applyifix
 #########################################################
 
 resource "camc_softwaredeploy" "Workflow01_workflow_v18_applyifix" {
-  depends_on = ["camc_softwaredeploy.Workflow01_workflow_v18_install"]
+  depends_on = ["camc_softwaredeploy.Workflow01_workflow_v18_upgrade"]
   name = "Workflow01_workflow_v18_applyifix"
   camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
   access_token = "${var.ibm_pm_access_token}"
@@ -1799,6 +2083,46 @@ resource "camc_softwaredeploy" "workflow01_setup_webserver" {
 EOT
 }
 
+#########################################################
+##### Resource : Workflow01_workflow_post_deployment
+#########################################################
+
+resource "camc_softwaredeploy" "Workflow01_workflow_post_deployment" {
+  depends_on = ["camc_softwaredeploy.Workflow01_workflow_v18_upgrade","camc_softwaredeploy.workflow01_setup_webserver"]
+  name = "Workflow01_workflow_post_deployment"
+  camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
+  access_token = "${var.ibm_pm_access_token}"
+  skip_ssl_verify = true
+  trace = true
+  data = <<EOT
+{
+  "os_admin_user": "${var.Workflow01-os_admin_user}",
+  "stack_id": "${var.ibm_stack_id}",
+  "environment_name": "_default",
+  "host_ip": "${vsphere_virtual_machine.Workflow01.clone.0.customize.0.network_interface.0.ipv4_address}",
+  "node_name": "${var.Workflow01-name}",
+  "runlist": "role[workflow_post_deployment]",
+  "node_attributes": {
+    "ibm_internal": {
+      "roles": "[workflow_post_deployment]"
+    },
+    "workflow":{
+      "os_users": {
+        "workflow": {
+          "gid": "${var.Workflow01_baw_os_user_gid}",
+          "name": "${var.Workflow01_baw_os_user_name}"
+          }
+      },
+      "config": {
+          "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}"
+      },
+      "install_mode": "${var.Workflow01_install_mode}",
+      "install_dir": "${local.Workflow01_install_dir}"
+    }
+  }
+}
+EOT
+}
 
 #########################################################
 ##### Resource : Workflow02
@@ -1978,6 +2302,7 @@ else
 echo "user_home : $user_home"
 fi
 
+echo "" >> "$user_auth_key_file"
 if [[ $ssh_key = 'None' ]]; then
 echo "skipping user key add, 'None' specified"
 else
@@ -2098,7 +2423,6 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_install" {
       "features": "${var.Workflow01_features}",
       "offering_id": "${var.Workflow01_baw_offering_id}",
       "install_dir": "${local.Workflow02_install_dir}",
-      "ifix_names": "${join(",",var.Workflow01_ifix_names)}",
       "profile_id": "${var.Workflow01_was_profile_id}"
     },
     "db2": {
@@ -2140,7 +2464,7 @@ EOT
 #########################################################
 ##### Resource : Workflow02_workflow_v18_config
 #########################################################
-#  Todo:"dmgr_hostname": "${var.Workflow01-name}.${var.Workflow01_domain}",
+
 resource "camc_softwaredeploy" "Workflow02_workflow_v18_config" {
   depends_on = ["camc_softwaredeploy.Workflow02_workflow_v18_applyifix","camc_softwaredeploy.Workflow01_workflow_v18_config"]
   name = "Workflow02_workflow_v18_config"
@@ -2159,6 +2483,9 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_config" {
   "node_attributes": {
     "ibm_internal": {
       "roles": "[workflow_v18_0_201809_create_singleclusters]"
+    },
+    "ibm": {
+      "sw_repo": "${var.ibm_sw_repo}/workflow"
     },
     "workflow":{
       "ip_hostname_pairs": { "${var.IHS01_ipv4_address}": "${var.IHS01-name}.${var.IHS01_domain}","${var.Workflow01_ipv4_address}": "${var.Workflow01-name}.${var.Workflow01_domain}", "${var.Workflow02_ipv4_address}": "${var.Workflow02-name}.${var.Workflow02_domain}" },
@@ -2180,6 +2507,7 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_config" {
         "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
         "ihs_hostname": "${var.IHS01-name}.${var.IHS01_domain}",
         "ihs_https_port": "${var.IHS01_ihs_https_port}",
+        "database_type": "${var.Database_type}",
         "db2_hostname": "${var.Database_db2_hostname}",
         "db2_port": "${var.Database_db2_port}",
         "db_alias_user": "${var.Database_db2_instance_username}",
@@ -2205,6 +2533,36 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_config" {
             "tstosidx": "${var.Database_cpe_tosdb_tstosidx}"
           }
         },
+        "oracle": {
+          "hostname": "${var.Database_oracle_hostname}",
+          "port": "${var.Database_oracle_port}",
+          "database_name": "${var.Database_oracle_database_name}",
+          "jdbc_driver": "${var.Oracle_jdbc_driver}",
+          "shareddb": {
+            "username": "${var.Database_oracle_shareddb_username}"
+          },
+          "cellonlydb": {
+            "username": "${var.Database_oracle_cellonlydb_username}"
+          },
+          "psdb": {
+            "username": "${var.Database_oracle_psdb_username}"
+          },
+          "icndb": {
+            "username": "${var.Database_oracle_icndb_username}",
+            "tsicn": "${var.Database_oracle_icndb_tablespace}"
+          },
+          "dosdb": {
+            "username": "${var.Database_oracle_dosdb_username}",
+            "tsdosdata": "${var.Database_oracle_dosdb_tsdosdata}"
+          },
+          "tosdb": {
+            "username": "${var.Database_oracle_tosdb_username}",
+            "tstosdata": "${var.Database_oracle_tosdb_tstosdata}"
+          },
+          "pdwdb": {
+            "username": "${var.Database_oracle_pdwdb_username}"
+          }
+        },
         "ps_environment_purpose": "${var.Workflow01_ps_environment_purpose}",
         "ps_offline": "${var.Workflow01_ps_offline}",
         "ps_pc_transport_protocol": "${var.Workflow01_ps_pc_transport_protocol}",
@@ -2214,7 +2572,7 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_config" {
         "ps_pc_alias_user": "${var.Workflow01_ps_pc_alias_user}",
         "case_network_shared_dir": "${var.case_network_shared_dir}",
         "db2_install": "false"
-     }
+      }
     }
   },
   "vault_content": {
@@ -2229,7 +2587,142 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_config" {
           "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}",
           "deadmin_alias_password": "${var.Workflow01_de_admin_userpassword}",
           "db_alias_password": "${var.Database_db2_instance_userpassword}",
-          "ps_pc_alias_password": "${var.Workflow01_ps_pc_alias_password}"
+          "ps_pc_alias_password": "${var.Workflow01_ps_pc_alias_password}",
+          "oracle": {
+            "shareddb": {
+              "password": "${var.Database_oracle_shareddb_userpassword}"
+            },
+            "cellonlydb": {
+              "password": "${var.Database_oracle_cellonlydb_userpassword}"
+            },
+            "psdb": {
+              "password": "${var.Database_oracle_psdb_userpassword}"
+            },
+            "icndb": {
+              "password": "${var.Database_oracle_icndb_userpassword}"
+            },
+            "dosdb": {
+              "password": "${var.Database_oracle_dosdb_userpassword}"
+            },
+            "tosdb": {
+              "password": "${var.Database_oracle_tosdb_userpassword}"
+            },
+            "pdwdb": {
+              "password": "${var.Database_oracle_pdwdb_userpassword}"
+            }
+          }
+        }
+      }
+    },
+    "vault": "${var.ibm_stack_id}"
+  }
+}
+EOT
+}
+
+#########################################################
+##### Resource : Workflow02_workflow_post_deployment
+#########################################################
+
+resource "camc_softwaredeploy" "Workflow02_workflow_post_deployment" {
+  depends_on = ["camc_softwaredeploy.Workflow02_workflow_v18_upgrade","camc_softwaredeploy.Workflow02_workflow_v18_config","camc_softwaredeploy.Workflow01_workflow_post_deployment"]
+  name = "Workflow02_workflow_post_deployment"
+  camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
+  access_token = "${var.ibm_pm_access_token}"
+  skip_ssl_verify = true
+  trace = true
+  data = <<EOT
+{
+  "os_admin_user": "${var.Workflow02-os_admin_user}",
+  "stack_id": "${var.ibm_stack_id}",
+  "environment_name": "_default",
+  "host_ip": "${vsphere_virtual_machine.Workflow02.clone.0.customize.0.network_interface.0.ipv4_address}",
+  "node_name": "${var.Workflow02-name}",
+  "runlist": "role[workflow_post_deployment]",
+  "node_attributes": {
+    "ibm_internal": {
+      "roles": "[workflow_post_deployment]"
+    },
+    "workflow":{
+      "os_users": {
+        "workflow": {
+          "gid": "${var.Workflow02_baw_os_user_gid}",
+          "name": "${var.Workflow02_baw_os_user_name}"
+          }
+      },
+      "config": {
+          "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}"
+      },
+      "install_mode": "${var.Workflow01_install_mode}",
+      "install_dir": "${local.Workflow02_install_dir}"
+    }
+  },
+  "vault_content": {
+    "item": "secrets",
+    "values": {
+      "ibm": {
+        "im_repo_password": "${var.ibm_im_repo_password}",
+        "sw_repo_password": "${var.ibm_sw_repo_password}"
+      }
+    },
+    "vault": "${var.ibm_stack_id}"
+  }
+}
+EOT
+}
+
+#########################################################
+##### Resource : Workflow02_workflow_v18_upgrade
+#########################################################
+
+resource "camc_softwaredeploy" "Workflow02_workflow_v18_upgrade" {
+  depends_on = ["camc_softwaredeploy.Workflow02_workflow_v18_install"]
+  name = "Workflow02_workflow_v18_upgrade"
+  camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
+  access_token = "${var.ibm_pm_access_token}"
+  skip_ssl_verify = true
+  trace = true
+  data = <<EOT
+{
+  "os_admin_user": "${var.Workflow02-os_admin_user}",
+  "stack_id": "${var.ibm_stack_id}",
+  "environment_name": "_default",
+  "host_ip": "${vsphere_virtual_machine.Workflow02.clone.0.customize.0.network_interface.0.ipv4_address}",
+  "node_name": "${var.Workflow02-name}",
+  "runlist": "role[workflow_upgrade]",
+  "node_attributes": {
+    "ibm": {
+      "fixpack_repo": "${var.ibm_sw_repo}/workflow/fixpacks"
+    },
+    "ibm_internal": {
+      "roles": "[workflow_upgrade]"
+    },
+    "workflow":{
+      "install_mode": "${var.Workflow01_install_mode}",
+      "os_users": {
+        "workflow": {
+          "gid": "${var.Workflow02_baw_os_user_gid}",
+          "name": "${var.Workflow02_baw_os_user_name}"
+          }
+      },
+      "install_dir": "${local.Workflow02_install_dir}",
+      "fixpack_names": ["${join("\",\"", var.Workflow01_fixpack_names)}"],
+      "config": {
+       "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
+       "celladmin_alias_user": "${var.Workflow01_cell_admin_username}"
+      }
+    }
+  },
+  "vault_content": {
+    "item": "secrets",
+    "values": {
+      "ibm": {
+        "im_repo_password": "${var.ibm_im_repo_password}",
+        "sw_repo_password": "${var.ibm_sw_repo_password}"
+      },
+      "workflow": {
+        "config": {
+          "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}"
         }
       }
     },
@@ -2244,7 +2737,7 @@ EOT
 #########################################################
 
 resource "camc_softwaredeploy" "Workflow02_workflow_v18_applyifix" {
-  depends_on = ["camc_softwaredeploy.Workflow02_workflow_v18_install"]
+  depends_on = ["camc_softwaredeploy.Workflow02_workflow_v18_upgrade"]
   name = "Workflow02_workflow_v18_applyifix"
   camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
   access_token = "${var.ibm_pm_access_token}"
@@ -2300,71 +2793,6 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_applyifix" {
       "workflow": {
         "config": {
           "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}"
-        }
-      }
-    },
-    "vault": "${var.ibm_stack_id}"
-  }
-}
-EOT
-}
-
-#########################################################
-##### Resource : Setup_case_management
-#########################################################
-
-resource "camc_softwaredeploy" "Setup_case_management" {
-  depends_on = ["camc_softwaredeploy.Workflow02_workflow_v18_config","camc_softwaredeploy.workflow01_setup_webserver"]
-  name = "Setup_case_management"
-  camc_endpoint = "${var.ibm_pm_service}/v1/software_deployment/chef"
-  access_token = "${var.ibm_pm_access_token}"
-  skip_ssl_verify = true
-  trace = true
-  data = <<EOT
-{
-  "os_admin_user": "${var.Workflow01-os_admin_user}",
-  "stack_id": "${var.ibm_stack_id}",
-  "environment_name": "_default",
-  "host_ip": "${vsphere_virtual_machine.Workflow01.clone.0.customize.0.network_interface.0.ipv4_address}",
-  "node_name": "${var.Workflow01-name}",
-  "runlist": "role[workflow_v18_0_201809_singleclusters_setupcase]",
-  "node_attributes": {
-    "ibm_internal": {
-      "roles": "[workflow_v18_0_201809_singleclusters_setupcase]"
-    },
-    "workflow":{
-      "install_mode": "${var.Workflow01_install_mode}",
-      "os_users": {
-        "workflow": {
-          "comment": "${var.Workflow01_baw_os_user_comment}",
-          "gid": "${var.Workflow01_baw_os_user_gid}",
-          "home": "${local.Workflow01_baw_os_user_home}",
-          "ldap_user": "${var.Workflow01_baw_os_user_ldap_user}",
-          "name": "${var.Workflow01_baw_os_user_name}",
-          "shell": "${var.Workflow01_baw_os_user_shell}"
-          }
-      },
-      "install_dir": "${local.Workflow01_install_dir}",
-      "config": {
-        "product_type": "${var.Workflow01_config_product_type}",
-        "deployment_type": "${var.Workflow01_config_deployment_type}",
-        "cluster_type": "${var.Workflow01_config_cluster_type}",
-        "celladmin_alias_user": "${var.Workflow01_cell_admin_username}",
-        "deadmin_alias_user": "${var.Workflow01_de_admin_username}",
-        "ihs_hostname": "${var.IHS01-name}.${var.IHS01_domain}",
-        "ihs_https_port": "${var.IHS01_ihs_https_port}",
-        "dmgr_hostname": "${var.Workflow01-name}.${var.Workflow01_domain}",
-        "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}"
-      }
-    }
-  },
-  "vault_content": {
-    "item": "secrets",
-    "values": {
-      "workflow": {
-        "config": {
-          "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}",
-          "deadmin_alias_password": "${var.Workflow01_de_admin_userpassword}"
         }
       }
     },
@@ -2442,20 +2870,12 @@ output "Workflow01_bpc_ip" {
   value = "https://${vsphere_virtual_machine.IHS01.clone.0.customize.0.network_interface.0.ipv4_address}:${var.IHS01_ihs_https_port}/bpc"
 }
 
-output "Workflow01_cb_dns" {
-  value = "https://${var.IHS01-name}.${var.IHS01_domain}:${var.IHS01_ihs_https_port}/CaseBuilder"
+output "Workflow01_pp_dns" {
+  value = "https://${var.IHS01-name}.${var.IHS01_domain}:${var.IHS01_ihs_https_port}/ProcessPortal"
 }
 
-output "Workflow01_cb_ip" {
-  value = "https://${vsphere_virtual_machine.IHS01.clone.0.customize.0.network_interface.0.ipv4_address}:${var.IHS01_ihs_https_port}/CaseBuilder"
-}
-
-output "Workflow01_ng_dns" {
-  value = "https://${var.IHS01-name}.${var.IHS01_domain}:${var.IHS01_ihs_https_port}/navigator"
-}
-
-output "Workflow01_ng_ip" {
-  value = "https://${vsphere_virtual_machine.IHS01.clone.0.customize.0.network_interface.0.ipv4_address}:${var.IHS01_ihs_https_port}/navigator"
+output "Workflow01_pp_ip" {
+  value = "https://${vsphere_virtual_machine.IHS01.clone.0.customize.0.network_interface.0.ipv4_address}:${var.IHS01_ihs_https_port}/ProcessPortal"
 }
 
 output "stack_id" {
