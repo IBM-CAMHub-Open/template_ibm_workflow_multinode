@@ -523,7 +523,7 @@ variable "Workflow01_ifix_names" {
 #Variable : Workflow01_fixpack_names
 variable "Workflow01_fixpack_names" {
   type = "list"
-  description = "Indicates the full names of fix pack installation packages - e.g workflow.18002.delta.repository.zip"
+  description = "Indicates the full names of fix pack installation packages - e.g workflow.19001.delta.repository.zip"
 }
 
 ##### Configuration variables #####
@@ -1903,7 +1903,7 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_upgrade" {
           }
       },
       "install_dir": "${local.Workflow01_install_dir}",
-      "fixpack_names": ["${join("\",\"", var.Workflow01_fixpack_names)}"],
+      "fixpack_names_list": "${join(",", var.Workflow01_fixpack_names)}",
       "config": {
        "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
        "celladmin_alias_user": "${var.Workflow01_cell_admin_username}"
@@ -2706,7 +2706,7 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_upgrade" {
           }
       },
       "install_dir": "${local.Workflow02_install_dir}",
-      "fixpack_names": ["${join("\",\"", var.Workflow01_fixpack_names)}"],
+      "fixpack_names_list": "${join(",", var.Workflow01_fixpack_names)}",
       "config": {
        "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
        "celladmin_alias_user": "${var.Workflow01_cell_admin_username}"
