@@ -523,7 +523,7 @@ variable "Workflow01_ifix_names" {
 #Variable : Workflow01_fixpack_names
 variable "Workflow01_fixpack_names" {
   type = "list"
-  description = "Indicates the full names of fix pack installation packages - e.g workflow.18002.delta.repository.zip"
+  description = "Indicates the full names of fix pack installation packages - e.g workflow.19002.delta.repository.zip"
 }
 
 ##### Configuration variables #####
@@ -1903,8 +1903,9 @@ resource "camc_softwaredeploy" "Workflow01_workflow_v18_upgrade" {
           }
       },
       "install_dir": "${local.Workflow01_install_dir}",
-      "fixpack_names": ["${join("\",\"", var.Workflow01_fixpack_names)}"],
+      "fixpack_names_list": "${join(",", var.Workflow01_fixpack_names)}",
       "config": {
+       "product_type": "${var.Workflow01_config_product_type}",
        "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
        "celladmin_alias_user": "${var.Workflow01_cell_admin_username}"
       }
@@ -2114,11 +2115,27 @@ resource "camc_softwaredeploy" "Workflow01_workflow_post_deployment" {
           }
       },
       "config": {
+          "celladmin_alias_user": "${var.Workflow01_cell_admin_username}",
           "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}"
       },
       "install_mode": "${var.Workflow01_install_mode}",
       "install_dir": "${local.Workflow01_install_dir}"
     }
+  },
+  "vault_content": {
+    "item": "secrets",
+    "values": {
+      "ibm": {
+        "im_repo_password": "${var.ibm_im_repo_password}",
+        "sw_repo_password": "${var.ibm_sw_repo_password}"
+      },
+      "workflow": {
+        "config": {
+          "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}"
+        }
+      }
+    },
+    "vault": "${var.ibm_stack_id}"
   }
 }
 EOT
@@ -2651,6 +2668,7 @@ resource "camc_softwaredeploy" "Workflow02_workflow_post_deployment" {
           }
       },
       "config": {
+          "celladmin_alias_user": "${var.Workflow01_cell_admin_username}",
           "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}"
       },
       "install_mode": "${var.Workflow01_install_mode}",
@@ -2663,6 +2681,11 @@ resource "camc_softwaredeploy" "Workflow02_workflow_post_deployment" {
       "ibm": {
         "im_repo_password": "${var.ibm_im_repo_password}",
         "sw_repo_password": "${var.ibm_sw_repo_password}"
+      },
+      "workflow": {
+        "config": {
+          "celladmin_alias_password": "${var.Workflow01_cell_admin_userpassword}"
+        }
       }
     },
     "vault": "${var.ibm_stack_id}"
@@ -2706,8 +2729,9 @@ resource "camc_softwaredeploy" "Workflow02_workflow_v18_upgrade" {
           }
       },
       "install_dir": "${local.Workflow02_install_dir}",
-      "fixpack_names": ["${join("\",\"", var.Workflow01_fixpack_names)}"],
+      "fixpack_names_list": "${join(",", var.Workflow01_fixpack_names)}",
       "config": {
+       "product_type": "${var.Workflow01_config_product_type}",
        "node_hostnames": "${var.Workflow01-name}.${var.Workflow01_domain},${var.Workflow02-name}.${var.Workflow02_domain}",
        "celladmin_alias_user": "${var.Workflow01_cell_admin_username}"
       }
